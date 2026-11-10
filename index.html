@@ -3888,7 +3888,7 @@ window.__fit=function(wrap,cv,ctx,wide){const b=document.body;b.classList.add('i
  let iw=innerWidth,ih=innerHeight;
  {const t0=card.querySelector(':scope>.fatal-t'),box=card.querySelector('.covbox');if(t0&&box){t0.classList.add('intitle');box.prepend(t0)}}const th=0;const aw=iw-12,ah=ih-12;let s,W,H;
  if(iw<=ih){s=Math.max(1,Math.min(aw/340,Math.max(1,ah/700)));W=Math.floor(aw/s);H=Math.floor(ah/s)}
- else{const big=iw>=900&&ih>=560;const Hl=big?(wide?470:560):Math.min(ah,380);s=Math.max(1,ah/Hl);H=Math.floor(ah/s);W=['bubble','golf','pinball','boss'].includes(window.__curGame)?Math.min(Math.floor(aw/s),Math.round(H*.82)):Math.floor(aw/s)}
+ else{const big=iw>=900&&ih>=560;const Hl=big?(wide?470:560):Math.min(ah,380);s=Math.max(1,ah/Hl);H=Math.floor(ah/s);W=['bubble','golf','pinball'].includes(window.__curGame)?Math.min(Math.floor(aw/s),Math.round(H*.82)):Math.floor(aw/s)}
  wrap.style.width=W+'px';wrap.style.height=H+'px';cv.style.width='100%';cv.style.height=H+'px';
  const cw=wrap.clientWidth;GF={wrap,cv,ctx,W:cw,H,card};window.__gcv=cv;window.__gW=cw;window.__gH=H;window.__gctx=ctx;
  cv.getBoundingClientRect=function(){const q=Element.prototype.getBoundingClientRect.call(this),k=window.__gcv===this?window.__gs:1;return{left:q.left,top:q.top,right:q.left+q.width/k,bottom:q.top+q.height/k,width:q.width/k,height:q.height/k,x:q.left,y:q.top}};
@@ -4498,7 +4498,7 @@ function topgear(done){const M=MIS[R.m];
 /* ===== PINBALL DA RECICLAGEM (em pé) – versão 2 ===== */
 function pinball(done){const M=MIS[R.m];
  const st=stage(`${ic('recycle')} PINBALL DA RECICLAGEM!`,`<b class="covt">O exército do Capitão Sujeira invadiu o fliperama!</b><p>TOQUE no lado ESQUERDO ou DIREITO da tela para bater com as palhetas (no computador: setas ou Z e M).</p><p>Acerte o VILÃO no alto, acenda as letras E-C-O-I-A, as 4 LIXEIRAS (MULTIBOLA) e acerte a BOCA DE LOBO do meio para o JACKPOT!</p><p>Cuidado: os monstros andam e a barreira abre e fecha!</p>`);
- const{cv,ctx,W,H,h}=st;const BR=Math.max(7,Math.min(W,H)*.021),g=H*1.45;
+ const{cv,ctx,W,H,h}=st;const BR=Math.max(10,Math.min(W,H)*.03),g=H*1.45;
  const top=58,fy=Math.min(H*.88,H-172),fl=W*.19,wb=fy-H*.14,FH=fy-top;
  const Y=f=>top+FH*f;
  const walls=[];const wl=(x1,y1,x2,y2,e)=>walls.push({x1,y1,x2,y2,e:e||.5});
@@ -4609,7 +4609,7 @@ function pinball(done){const M=MIS[R.m];
   trash.forEach(o=>{if(o.down){ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(o.x-o.r,o.y+o.r*.6,o.r*2,4);return}ctx.save();glow('#7dffb0',o.f>0?30:8);ctx.fillStyle='#e8eef6';ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,6.28);ctx.fill();ctx.restore();dsp(ctx,o.k,o.x,o.y,o.r*1.6)});
   bins.forEach(o=>{ctx.save();glow(o.c,o.on?32:6);ctx.fillStyle=o.on?o.c:'rgba(255,255,255,.15)';ctx.strokeStyle=o.c;ctx.lineWidth=3;ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,6.28);ctx.fill();ctx.stroke();ctx.restore();dsp(ctx,o.k,o.x,o.y,o.r*1.3)});
   flip.forEach(f=>{const e2=fEnd(f);ctx.save();glow(h.c,14);ctx.strokeStyle='#1b2a4a';ctx.lineWidth=BR*1.9;ctx.beginPath();ctx.moveTo(f.px,f.py);ctx.lineTo(e2.x,e2.y);ctx.stroke();ctx.strokeStyle=h.c;ctx.lineWidth=BR*1.3;ctx.stroke();ctx.restore();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(f.px,f.py,BR*.6,0,6.28);ctx.fill()});
-  balls.forEach(b=>{const bc=`hsl(${(b.hue+t*220)%360},100%,62%)`;b.trail.forEach((p,i)=>{ctx.globalAlpha=i/14;ctx.fillStyle=bc;ctx.beginPath();ctx.arc(p[0],p[1],b.r*(.5+i/20),0,6.28);ctx.fill()});ctx.globalAlpha=1;ctx.save();glow(bc,22+Math.sin(t*20)*8);const gg=ctx.createRadialGradient(b.x-b.r*.3,b.y-b.r*.3,1,b.x,b.y,b.r);gg.addColorStop(0,'#fff');gg.addColorStop(1,'#7fa6c9');ctx.fillStyle=gg;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,6.28);ctx.fill();ctx.restore()});
+  balls.forEach(b=>{const bc=`hsl(${(b.hue+t*220)%360},100%,62%)`;b.trail.forEach((p,i)=>{ctx.globalAlpha=i/14;ctx.fillStyle=bc;ctx.beginPath();ctx.arc(p[0],p[1],b.r*(.5+i/20),0,6.28);ctx.fill()});ctx.globalAlpha=1;ctx.save();glow(bc,22+Math.sin(t*20)*8);const gg=ctx.createRadialGradient(b.x-b.r*.3,b.y-b.r*.3,1,b.x,b.y,b.r);const hu=(b.hue+t*220)%360;gg.addColorStop(0,'#fff');gg.addColorStop(.35,`hsl(${hu},100%,70%)`);gg.addColorStop(1,`hsl(${(hu+60)%360},100%,42%)`);ctx.fillStyle=gg;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,6.28);ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='#fff';ctx.stroke();ctx.fillStyle='rgba(255,255,255,.85)';ctx.beginPath();ctx.arc(b.x-b.r*.35,b.y-b.r*.38,b.r*.28,0,6.28);ctx.fill();ctx.restore()});
   if(G.save>0)otx(ctx,'SALVA-BOLA',W/2,fy+BR*3,'#5ff2ff',12);
   if(mult()>1)otx(ctx,'x'+mult(),W-30,top+14,'#ff9a3d',22);
   heroDraw(ctx,G,h,W/2,fy+BR*5.2,BR*1.2,'head');
@@ -4846,14 +4846,13 @@ function kbgStart(vol,short){if(!SONGS9.length||KBG)return;const me={on:true,vol
  next()}
 function kbgStop(f){const me=KBG;if(!me)return;KBG=null;me.on=false;clearTimeout(me.tm);try{me.seq&&me.seq.stop(f||.6)}catch(e){}try{me.prev&&me.prev.stop(.1)}catch(e){}}
 window.__kbg={start:kbgStart,stop:kbgStop};
-const BGVOL=.32;
-const useK=()=>SONGS9.length&&musPick==='auto'&&mStyle!=='boss'&&!window.__pianoOn&&!window.__attractOn;
+/* (v11) as músicas dela tocam SÓ no Piano/Pancadão, no trailer e nos créditos finais; o resto do jogo volta à trilha original */
 if(typeof startMusic==='function'){const _sm=startMusic,_st=stopMusic;
- startMusic=function(){if(useK()){const a=ac();if(!a)return;if(!KBG)kbgStart(BGVOL);musicTimer=musicTimer||'k';return}return _sm.apply(this,arguments)};
- stopMusic=function(){kbgStop();if(musicTimer==='k'){musicTimer=null;return}return _st.apply(this,arguments)};
- /* troca automática: chefão = música de batalha; resto = refrões */
- setInterval(()=>{if(!musicOn||window.__pianoOn||window.__attractOn)return;const want=useK();if(want&&musicTimer&&musicTimer!=='k'){_st();musicTimer=null;startMusic()}else if(!want&&musicTimer==='k'){kbgStop();musicTimer=null;startMusic()}
-  if(KBG&&KBG.seq){try{KBG.seq.out.gain.value=Math.max(0,Math.min(1,BGVOL*(CFG.m||.8)))}catch(e){}}},700)}
+ startMusic=function(){if(window.__pianoOn||window.__attractOn||window.__credK)return;return _sm.apply(this,arguments)};
+ stopMusic=function(){return _st.apply(this,arguments)}}
+/* créditos finais com as músicas dela; quando o Capitão Sujeira aparece (pós-créditos) volta a música de suspense */
+if(typeof cleanWorld==='function'){const _cw=cleanWorld;cleanWorld=function(after){const r=_cw.apply(this,arguments);try{if(musicOn&&SONGS9.length){stopMusic();window.__credK=true;kbgStart(.85)}}catch(e){}return r}}
+if(typeof postCredit==='function'){const _pc=postCredit;postCredit=function(after){try{if(window.__credK){kbgStop(.25);window.__credK=false;setTimeout(()=>{try{if(musicOn){startMusic();if(window.__musPlay)__musPlay(OST&&OST.final?'final':'boss')}}catch(e){}},300)}}catch(e){}return _pc.call(this,function(){try{if(musicOn){stopMusic();startMusic()}}catch(e){}after&&after()})}}
 
 /* ================= 3. PIANO DAS GOTAS (estilo Piano Tiles) + FASE EXTRA PANCADÃO ================= */
 function planNormal(){const ks=SONGS9.slice().sort((a,b)=>eff(a)-eff(b));if(ks.length<3)return null;const last=LSg('ecoia_piano_last',[]);
@@ -4922,7 +4921,7 @@ function tiles9(done){
   for(let i=0;i<L;i++){ctx.fillStyle=i%2?'rgba(255,255,255,.035)':'rgba(255,255,255,.07)';ctx.fillRect(i*lw,0,lw,H);if(G.lane[i]>0){ctx.fillStyle=`rgba(125,249,255,${G.lane[i]*1.6})`;ctx.fillRect(i*lw,0,lw,H)}if(G.lanebad[i]>0){ctx.fillStyle=`rgba(255,80,80,${G.lanebad[i]*1.4})`;ctx.fillRect(i*lw,0,lw,H)}ctx.fillStyle='rgba(255,255,255,.12)';ctx.fillRect(i*lw,0,1,H)}
   ctx.fillStyle='rgba(255,212,0,.5)';ctx.fillRect(0,hitY,W,3);
   if(G.started){G.tl.forEach(t=>{const yb=hitY-(D(t.tb)-D(now)),hh=rowH*t.len,yt=yb-hh;if(yb<-10||yt>H)return;const x=t.col*lw+3,w=lw-6;ctx.globalAlpha=Math.max(0,Math.min(1,t.a));
-   let gg;if(t.hit&&!t.held){ctx.fillStyle='rgba(190,230,255,.55)'}else if(t.gold){gg=ctx.createLinearGradient(0,yt,0,yb);gg.addColorStop(0,'#fff3a0');gg.addColorStop(1,'#e0a800');ctx.fillStyle=gg}else{gg=ctx.createLinearGradient(0,yt,0,yb);gg.addColorStop(0,'#1d2440');gg.addColorStop(1,'#060912');ctx.fillStyle=gg}
+   let gg;if(t.hit&&!t.held){ctx.fillStyle='rgba(190,230,255,.55)'}else if(t.gold){gg=ctx.createLinearGradient(0,yt,0,yb);gg.addColorStop(0,'#fff3a0');gg.addColorStop(1,'#e0a800');ctx.fillStyle=gg}else{ctx.fillStyle='#0c1124'}
    _rr(ctx,x,yt+2,w,hh-4,10);ctx.fill();ctx.strokeStyle=t.gold?'#fff':t.held?'#7df9ff':'rgba(120,200,255,.55)';ctx.lineWidth=t.held?4:2;ctx.stroke();
    if(t.len>1&&!t.hit){ctx.fillStyle='rgba(125,249,255,.35)';ctx.fillRect(x+w/2-4,yt+12,8,hh-30)}
    if(!t.hit||t.held)dsp(ctx,t.gold?'star':'drop',x+w/2,yb-rowH/2,Math.min(lw,rowH)*.42);ctx.globalAlpha=1})}
@@ -4988,8 +4987,8 @@ setInterval(()=>{const T=LSg('ecoia_temporada',null);if(T&&T.done&&T.done.length
 
 /* ================= 7. gancho no laço dos jogos ================= */
 if(typeof gameLoop==='function'){const _gl=gameLoop;gameLoop=function(cv,upd,draw){const k=diffK();let fixed=false;
- const U=function(dt){const G=window.__G,st=window.__ST;if(G&&!fixed&&k>1&&G.dur&&G.dur<900){G.dur*=k;fixed=true}const r=upd.call(this,dt*k);try{if(G&&st&&st.cv===cv){pescaTick(G,st,dt*k);bossRaceTick(G,st,dt*k);kbTick(G,st,dt)}}catch(e){}return r};
- const Dw=function(){const r=draw.apply(this,arguments);try{const G=window.__G,st=window.__ST;if(G&&st&&st.cv===cv){pescaDraw(G,st);bossRaceDraw(G,st)}}catch(e){}return r};
+ const U=function(dt){const G=window.__G,st=window.__ST;if(G&&!fixed&&k>1&&G.dur&&G.dur<900){G.dur*=k;fixed=true}const r=upd.call(this,dt*k);try{if(G&&st&&st.cv===cv){pescaTick(G,st,dt*k);kbTick(G,st,dt)}}catch(e){}return r};
+ const Dw=function(){const r=draw.apply(this,arguments);try{const G=window.__G,st=window.__ST;if(G&&st&&st.cv===cv){pescaDraw(G,st)}}catch(e){}return r};
  return _gl.call(this,cv,U,Dw)}}
 
 /* ================= 8. PODER / HELP na Pescaria ================= */
@@ -5146,6 +5145,100 @@ body.lshake #cwrap{animation:lshk .6s linear}
 #attract .ag b{position:absolute;top:4vh;left:0;right:0}
 #attract .a3 b{animation:panpulse .6s ease-in-out infinite alternate;color:#3ee07a}
 #attract .atap{position:absolute;bottom:3vh;left:0;right:0;text-align:center;font:900 16px 'Baloo 2',sans-serif;animation:panpulse .7s ease-in-out infinite alternate;opacity:.9}
+`;document.head.appendChild(css);
+})();
+</script>
+<script>/* ===== PARTE 10 (10/11 noite, v11): chefões e vilões arremessando de verdade, sem faixas, tela em pé ou deitada, card grande, DUPLA mais forte, PODER não derruba o herói ===== */
+(function(){
+'use strict';
+const cur=()=>window.__curGame;
+const vilOf=()=>{try{return MIS[(R&&R.m)||0].vil}catch(e){return'sujeira'}};
+/* objetos que cada vilão arremessa (ícones do jogo) */
+const THROW={esgotao:['mud','toxic','mud'],vazamento:['drop','drop','toxic'],lixotron:['bag','can','box'],cinzenta:['smoke','smoke','toxic'],plastica:['bag','bottle','cup'],sujeira:['mud','bag','can'],fumaca:['smoke','toxic','smoke'],toxica:['toxic','barrel','toxic']};
+const TNAME={esgotao:'JATO DE ESGOTO!',vazamento:'CHUVA DE ÁGUA SUJA!',lixotron:'SACO DE LIXO!',cinzenta:'BOLAS DE FUMAÇA!',plastica:'SACOLAS GRUDENTAS!',sujeira:'LAMA DO CAPITÃO!',fumaca:'FUMAÇA QUENTE!',toxica:'GOSMA TÓXICA!'};
+const TCOL={esgotao:'#7a5a2a',vazamento:'#3a8fd0',lixotron:'#6b7280',cinzenta:'#8a93a6',plastica:'#ff7ae0',sujeira:'#5a3a1a',fumaca:'#ff8a3d',toxica:'#7dff6b'};
+const thr=v=>THROW[v]||THROW.sujeira;
+/* desenha um objeto arremessado (ícone grande girando, com brilho) */
+function drawThing(ctx,k,x,y,s,rot,col){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.shadowColor=col||'#fff';ctx.shadowBlur=18;
+ if(k==='smoke'){ctx.fillStyle='rgba(110,118,135,.92)';for(let i=0;i<5;i++){const a=i*1.26;ctx.beginPath();ctx.arc(Math.cos(a)*s*.22,Math.sin(a)*s*.22,s*.3,0,6.28);ctx.fill()}ctx.fillStyle='rgba(60,64,78,.95)';ctx.beginPath();ctx.arc(0,0,s*.26,0,6.28);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-s*.09,-s*.03,s*.06,0,6.28);ctx.arc(s*.09,-s*.03,s*.06,0,6.28);ctx.fill();ctx.fillStyle='#000';ctx.beginPath();ctx.arc(-s*.08,-s*.02,s*.03,0,6.28);ctx.arc(s*.1,-s*.02,s*.03,0,6.28);ctx.fill()}
+ else{try{dsp(ctx,k,0,0,s)}catch(e){ctx.fillStyle=col||'#888';ctx.beginPath();ctx.arc(0,0,s*.4,0,6.28);ctx.fill()}}
+ ctx.restore()}
+
+/* ================= 1. NAVE (Barão do Vazamento, Dama Cinzenta, Capitão Sujeira): sem faixas, ataques viram objetos voando no herói ================= */
+if(typeof window.__baGo==='function'){const _go=window.__baGo;window.__baGo=function(G,kind,vil){const r=_go.apply(this,arguments);try{const ba=G.ba;if(ba&&ba.special){ba.sp2=ba.special;ba.special=null;ba.cols=null;ba.safe=null}}catch(e){}return r}}
+window.__baSpecial=function(G,B,W,H,vil){const ba=G.ba;if(!ba||!ba.sp2)return false;ba.sp2=null;volley(G,B,vil,6);return true};
+function volley(G,B,vil,n){const ks=thr(vil);const tx=G.x!=null?G.x:(window.__ST||{}).W/2;for(let i=0;i<n;i++){const ang=Math.atan2((G.y||500)-(B.y+40),tx-B.x)+(i-(n-1)/2)*.16;const sp=230+Math.random()*40;G.dr.push({x:B.x,y:B.y+40,vx:Math.cos(ang)*sp,vy:Math.max(120,Math.sin(ang)*sp),th:ks[i%ks.length],rot:Math.random()*6})}
+ try{ftx(G,B.x,B.y+80,TNAME[vil]||'ATAQUE!','#ffb3b3');SFX.whoosh()}catch(e){}}
+/* tiros comuns do chefão também viram objetos do vilão */
+function navTick(G,st,dt){if(!G.boss||G.boss.x==null||!G.dr)return;const vil=vilOf(),ks=thr(vil);G.dr.forEach(d=>{if(!d.th){d.th=ks[Math.floor(Math.random()*ks.length)];d.rot=Math.random()*6}d.rot+=dt*5});
+ const B=G.boss;if(B&&!G.over){G.__nv=(G.__nv||0)-dt;const tired=G.ba&&G.t<G.ba.tiredUntil;if(G.__nv<=0&&!tired){G.__nv=2.6+Math.random()*1.4;G.__warn={t:.8,x:G.x}}if(G.__warn){G.__warn.t-=dt;if(G.__warn.t<=0){G.__warn=null;volley(G,B,vil,3)}}}}
+function navDraw(G,st){if(!G.boss||G.boss.x==null||!G.dr)return;const ctx=st.ctx,vil=vilOf(),col=TCOL[vil];
+ G.dr.forEach(d=>{if(d.th)drawThing(ctx,d.th,d.x,d.y,d.smoke?44:34,d.rot||0,col)});
+ if(G.__warn&&G.boss){const B=G.boss;ctx.save();ctx.globalAlpha=.55+Math.sin(performance.now()/60)*.3;ctx.strokeStyle='#ff3b3b';ctx.lineWidth=4;ctx.setLineDash([10,8]);ctx.beginPath();ctx.moveTo(B.x,B.y+40);ctx.lineTo(G.__warn.x,G.y-20);ctx.stroke();ctx.restore();otx(ctx,'!',B.x,B.y-60,'#ff3b3b',34)}}
+
+/* ================= 2. CORRIDAS (com e sem chefão): vilão na frente da pista arremessando objetos que caem na pista do herói ================= */
+const laneY=(st,d)=>{const y0=st.H*.3,yb=st.H-70,f=(1-d)*(1-d);return y0+(yb-y0)*f};
+const laneX=(st,l,d)=>{const W=st.W,f=(1-d)*(1-d),hw=W*.1+(W*.62-W*.1)*f;return W/2+(l-1)*hw*.66};
+const isRun=()=>document.body.classList.contains('runv')&&['runner','city','sonic','boss'].includes(cur());
+function runTick(G,st,dt){if(!isRun()||!G.obj||G.over||G.bdown||G.q&&G.obj.some(o=>o.kind==='gate'&&!o.done))return;const vil=vilOf();const boss=!!(G.isBoss&&G.bhp!=null);
+ const P=G.__rp||(G.__rp={cd:boss?2.2:5,warn:null,fly:[]});const tired=G.ba&&G.t<G.ba.tiredUntil;
+ /* base do chefão de corrida: se ele atacou (aviso → ataque), sai o arremesso */
+ if(boss&&G.ba&&(G.ba.n||0)>(P.n||0)){P.n=G.ba.n;launch(G,st,P,G.blane!=null?G.blane:G.lane,vil,3)}
+ if(!boss){P.cd-=dt;}if(!boss&&!tired&&P.cd<=0&&!P.warn){P.cd=(boss?3.2:5.5)+Math.random()*2*(boss?1:1.5);const l=Math.random()<.65?Math.round(G.lx!=null?G.lx:G.lane):Math.floor(Math.random()*3);P.warn={t:boss?.9:1.1,lane:l};try{SFX.bad()}catch(e){}}
+ if(P.warn){P.warn.t-=dt;if(P.warn.t<=0){launch(G,st,P,P.warn.lane,vil,boss?3:2);P.warn=null}}
+ P.fly.forEach(f=>{f.t+=dt;f.rot+=dt*7;if(f.t>=f.T&&!f.done){f.done=1;G.obj.push({d:.07,lane:f.lane,kind:'obs',k:f.k==='smoke'?'toxic':f.k});fxs(G,laneX(st,f.lane,.08),laneY(st,.08)-12,'boom',8);G.shake=Math.max(G.shake||0,.3);try{SFX.boom()}catch(e){}}});P.fly=P.fly.filter(f=>f.t<f.T+.35)}
+function launch(G,st,P,lane,vil,n){const ks=thr(vil);for(let i=0;i<n;i++)P.fly.push({t:-i*.12,T:.95,lane,k:ks[i%ks.length],rot:Math.random()*6,off:(i-(n-1)/2)*18});try{SFX.whoosh();ftx(G,st.W/2,st.H*.24,TNAME[vil]||'ATAQUE!','#ffb3b3')}catch(e){}}
+function runDraw(G,st){if(!isRun()||!G.__rp||G.over)return;const ctx=st.ctx,W=st.W,H=st.H,P=G.__rp,vil=vilOf(),boss=!!(G.isBoss&&G.bhp!=null);
+ /* vilão aparece na frente da pista nas corridas comuns */
+ if(!boss){try{const im=SPR((typeof VFULL!=='undefined'&&VFULL[vil])||vil);if(im&&im.naturalWidth){const hh=H*.17,ww=hh*im.naturalWidth/im.naturalHeight,y=H*.3-hh*.95+Math.sin(performance.now()/300)*4;ctx.save();ctx.globalAlpha=.95;ctx.shadowColor='#000';ctx.shadowBlur=12;ctx.drawImage(im,W/2-ww/2,y,ww,hh);ctx.restore()}}catch(e){}}
+ if(P.warn){const l=P.warn.lane;ctx.save();ctx.globalAlpha=.25+Math.abs(Math.sin(performance.now()/90))*.3;ctx.fillStyle='#ff3b3b';ctx.beginPath();ctx.moveTo(laneX(st,l,.9)-12,laneY(st,.9));ctx.lineTo(laneX(st,l,.9)+12,laneY(st,.9));ctx.lineTo(laneX(st,l,.02)+W*.1,laneY(st,.02));ctx.lineTo(laneX(st,l,.02)-W*.1,laneY(st,.02));ctx.fill();ctx.restore();otx(ctx,'CUIDADO! MUDE DE PISTA!',W/2,H*.42,'#fff',Math.min(20,W*.05))}
+ const bx=W/2+(boss?((G.blx||1)-1)*W*.14:0),by=H*.3-(boss?46:H*.08);
+ P.fly.forEach(f=>{if(f.t<0)return;const k=Math.min(1,f.t/f.T),ex=laneX(st,f.lane,.08)+f.off,ey=laneY(st,.08)-18,x=bx+(ex-bx)*k,y=by+(ey-by)*k-Math.sin(k*Math.PI)*H*.16,s=26+k*46;
+  ctx.save();ctx.globalAlpha=.35*k;ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(ex,ey+20,s*.55,s*.18,0,0,6.28);ctx.fill();ctx.restore();
+  drawThing(ctx,f.k,x,y,s,f.rot,TCOL[vil])})}
+
+/* ================= 3. ganchos no laço dos jogos ================= */
+if(typeof gameLoop==='function'){const _gl=gameLoop;gameLoop=function(cv,upd,draw){
+ const U=function(dt){const r=upd.apply(this,arguments);try{const G=window.__G,st=window.__ST;if(G&&st&&st.cv===cv){navTick(G,st,dt);runTick(G,st,dt);if(G.__lfx>0)G.__lfx-=dt}}catch(e){}return r};
+ const D=function(){const r=draw.apply(this,arguments);try{const G=window.__G,st=window.__ST;if(G&&st&&st.cv===cv){navDraw(G,st);runDraw(G,st);ligaDraw(G,st)}}catch(e){}return r};
+ return _gl.call(this,cv,U,D)}}
+
+/* ================= 4. DUPLA / LIGA: toque garantido e golpe que aparece no chefão ================= */
+addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#ligabtn');if(!b||!b.classList.contains('ready')||document.querySelector('.ligasc'))return;b.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,cancelable:true}))},true);
+new MutationObserver(ms=>ms.forEach(m=>m.removedNodes.forEach(n=>{if(n.classList&&n.classList.contains('ligasc')){const G=window.__G;if(G){G.__lfx=1.6;G.__lcol=[...n.querySelectorAll('.lpan')].map(p=>getComputedStyle(p).getPropertyValue('--c')||'#ffd400');if(G.ba)G.ba.tiredUntil=Math.max(G.ba.tiredUntil||0,G.t+3);try{pop('GOLPE EM CHEIO! CHEFÃO TONTO!')}catch(e){}}}}))).observe(document.body,{childList:true,subtree:true});
+function ligaDraw(G,st){if(!(G.__lfx>0))return;const ctx=st.ctx,W=st.W,H=st.H,k=G.__lfx/1.6;let bx=W/2,by=H*.2;if(G.boss&&G.boss.x!=null){bx=G.boss.x;by=G.boss.y}else if(G.isBoss){bx=W/2+((G.blx||1)-1)*W*.14;by=H*.3-46}
+ const cs=(G.__lcol&&G.__lcol.length?G.__lcol:['#ffd400','#5ff2ff']);ctx.save();ctx.globalCompositeOperation='lighter';cs.forEach((c,i)=>{const sx=W*(i+.5)/cs.length,sy=H;ctx.strokeStyle=c||'#ffd400';ctx.lineWidth=18*k+6;ctx.shadowColor=c;ctx.shadowBlur=30;ctx.globalAlpha=k;ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(bx,by);ctx.stroke()});
+ ctx.globalAlpha=k;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(bx,by,40+(1-k)*120,0,6.28);ctx.fill();ctx.restore();otx(ctx,'GOLPE DA LIGA!',W/2,H*.5,'#ffd400',Math.min(34,W*.08))}
+
+/* ================= 5. PODER / HELP: o herói nunca se machuca com o próprio poder ================= */
+if(typeof applyPower==='function'){const _ap=applyPower;applyPower=function(st,G,h){const keep={};try{if(['platform','trilha'].includes(cur())){['pipes','plats','ground','tiles','blocks'].forEach(k=>{if(Array.isArray(G[k]))keep[k]=G[k].slice()})}}catch(e){}
+ const r=_ap.apply(this,arguments);try{Object.keys(keep).forEach(k=>{G[k]=keep[k]});G.inv=Math.max(G.inv||0,1.5);G.__pwsafe=performance.now()+2500;if(G.lives<=0&&!G.over)G.lives=1}catch(e){}return r}}
+if(typeof hurtG==='function'){const _hg=hurtG;hurtG=function(G,x,y,onDead){if(G&&G.__pwsafe&&performance.now()<G.__pwsafe)return false;return _hg.apply(this,arguments)}}
+
+/* ================= 6. TELA: cada jogo joga EM PÉ ou DEITADO, do jeito que a pessoa segurar ================= */
+const PORT_ONLY=['pinball','bubble','golf'];
+const ALLW=()=>[...new Set([...(window.GPOOL||[]),'boss','runner','city','sonic','kart'])];
+function syncWide(){if(!window.WIDEG)return;const land=innerWidth>innerHeight;WIDEG.length=0;if(land)ALLW().filter(g=>!PORT_ONLY.includes(g)).forEach(g=>WIDEG.push(g))}
+syncWide();addEventListener('resize',syncWide);addEventListener('orientationchange',()=>setTimeout(syncWide,300));
+if(typeof stage==='function'){const _stg=stage;stage=function(){syncWide();return _stg.apply(this,arguments)}}
+/* girou o aparelho com o jogo aberto: refaz a tela do jogo no novo jeito (antes de começar, ou nos primeiros segundos) */
+let lastLand=innerWidth>innerHeight,rotT=0;
+function onRot(){const land=innerWidth>innerHeight;if(land===lastLand)return;lastLand=land;syncWide();const w=document.getElementById('cwrap');if(!w||!window.__retry||cur()==='tiles')return;
+ const playing=document.body.classList.contains('playing'),G=window.__G;
+ if(!playing||(G&&G.t<6&&!G.over)){clearTimeout(rotT);rotT=setTimeout(()=>{try{window.__retry()}catch(e){}},350);return}
+ if(document.getElementById('rotfix'))return;const b=document.createElement('button');b.id='rotfix';b.textContent='Girou a tela? Toque aqui para ajustar (recomeça a fase)';b.onclick=()=>{b.remove();try{window.__retry()}catch(e){}};document.body.appendChild(b);setTimeout(()=>b.remove(),6000)}
+addEventListener('resize',()=>setTimeout(onRot,250));addEventListener('orientationchange',()=>setTimeout(onRot,400));
+/* nada de "gire o aparelho" */
+setInterval(()=>{const c=document.getElementById('cov');if(c)c.__rotOk=true;document.querySelectorAll('.rotov').forEach(e=>e.remove());const cs=document.getElementById('cstart');if(cs&&cs.style.visibility==='hidden')cs.style.visibility=''},250);
+
+/* ================= 7. ESTILOS ================= */
+const css=document.createElement('style');css.id='p10css';css.textContent=`
+.rotov{display:none!important}
+#rotfix{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:9000;background:#ffd400;color:#1b1030;border:3px solid #fff;border-radius:14px;padding:8px 14px;font:900 14px 'Baloo 2',sans-serif;box-shadow:0 4px 0 rgba(0,0,0,.4)}
+/* transformação: card grande ocupando a tela */
+.tcard .hbig .tcardimg{height:min(64dvh,calc(100dvh - 300px))!important;max-height:none!important;width:auto!important;max-width:94vw!important;object-fit:contain!important}
+body.land .tcard .hbig .tcardimg{height:calc(100dvh - 240px)!important}
+.tcard #treveal{justify-content:center!important}
 `;document.head.appendChild(css);
 })();
 </script>
