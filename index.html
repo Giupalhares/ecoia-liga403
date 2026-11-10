@@ -1946,7 +1946,7 @@ async function transform(i){
  SFX.whoosh();await wait(900);
  for(const n of['TRÊS...','DOIS...','UM...']){const c=$('#cnt');if(!c)return;c.textContent=n;SFX.tap();await wait(750)}
  if(!$('#cnt'))return;$('#cnt').textContent='TRANSFORMAÇÃO DA TURMA 403!';flash();SFX.boom();pop('FUUUUSH!');confetti(70);$('.crystal').classList.add('gone');
- speak(h.fr+' Nasceu mais um super-herói: '+h.n+'!','eco');$('#treveal').innerHTML=`<div class="hero-reveal" style="--c:${h.c}"><div class="hbig">${FULL2[h.id]?`<img class="pic hfullbig" src="${wimg(FULL2[h.id])}">`:h.e}</div><div class="hname">${esc(p.name)}<br><span>${h.n}</span></div><div class="hframe">“${h.fr}”</div><ul class="hstats"><li>⚡ <b>Poder:</b> ${h.p}</li><li>💥 <b>Golpe especial:</b> ${h.g}</li><li>🎨 <b>Uniforme:</b> ${h.u}</li><li>😅 <b>Fraqueza:</b> ${h.fq}</li></ul><div class="born">NASCEU MAIS UM SUPER-HERÓI!</div></div><button class="b big green" data-f="${F(once(()=>transform(i+1)))}">${i+1<S.players.length?'▶ Próximo herói':'🏆 Ver a Liga completa!'}</button>`}
+ speak(h.fr+' Nasceu mais um super-herói: '+h.n+'!','eco');$('#treveal').innerHTML=`<div class="hero-reveal cardrev" style="--c:${h.c}"><div class="hbig">${P['card_'+h.id]?`<img class="pic tcardimg" src="${wimg('card_'+h.id)}" alt="${h.n}">`:(FULL2[h.id]?`<img class="pic hfullbig" src="${wimg(FULL2[h.id])}">`:h.e)}</div><div class="hframe">“${h.fr}”</div><div class="born">NASCEU MAIS UM SUPER-HERÓI!</div></div><button class="b big green" data-f="${F(once(()=>transform(i+1)))}">${i+1<S.players.length?'▶ Próximo herói':'🏆 Ver a Liga completa!'}</button>`}
 
 function leagueBoard(){const g=S.gems;const items=[[10,'🧥 Capa Dourada'],[20,'🌈 Armadura Arco-Íris'],[30,'👑 Coroa do Planeta Azul']];
  return`<div class="board">${S.players.map(p=>{const h=heroOf(p);return`<div class="prow" style="--c:${h.c}"><span class="pe">${h.e}</span><span class="pn">${esc(p.name)}<small>${h.n} · Nv. ${p.badges.length+1} · ${h.g}</small></span><span>⭐ ${p.stars}</span><span class="pm">${p.badges.map(b=>MIS[b].e).join('')||'—'}</span></div>`}).join('')}</div>
@@ -2719,7 +2719,7 @@ function cutrope(done){
   for(let it=0;it<4;it++)G.ropes.forEach(r=>{if(r.cut)return;const dx=b.x-r.p.x,dy=b.y-r.p.y,d=Math.hypot(dx,dy);if(d>r.len){b.x=r.p.x+dx/d*r.len;b.y=r.p.y+dy/d*r.len}});
   G.stars.forEach(s=>{if(!s.got&&Math.hypot(s.x-b.x,s.y-b.y)<26){s.got=true;G.got++;G.score+=15;SFX.gem();fxs(G,s.x,s.y,'star',8);ftx(G,s.x,s.y-20,'+15','#ffd400')}});
   if(Math.hypot(G.pot.x-b.x,G.pot.y-20-b.y)<34){const n=G.stars.filter(s=>s.got).length;const v=40+n*20;G.score+=v;G.lvls++;G.combo++;SFX.ok();pop(n===3?'PERFEITO! 3 ESTRELAS!':'A PLANTA BEBEU!');fxs(G,G.pot.x,G.pot.y-30,'leaf',16);ftx(G,G.pot.x,G.pot.y-60,'+'+v,'#ffd400');G.state='wait';G.wt=1.3;G.grow=1;if(n===3){S.gems++;hud()}}
-  else if(b.y>H+40||b.x<-60||b.x>W+60){G.combo=0;SFX.bad();ftx(G,W/2,H/2,'Errou! Tente de novo','#ffb3b3');G.state='wait';G.wt=.9;G.lv--}
+  else if(b.y>H+40||b.x<-60||b.x>W+60){G.combo=0;G.inv=0;hurtG(G,W/2,H/2,end);ftx(G,W/2,H/2+30,'Errou! -1 coração','#ffb3b3');G.state='wait';G.wt=.9;G.lv--}
   updFx(G,dt);if(G.t>=G.dur)end()}
  function end(){if(G.over)return;G.over=true;const pts=Math.max(8,Math.min(25,Math.round(G.score/12)));setTimeout(()=>results(st,G,pts,'PLANTINHAS REGADAS!',`<div>${ic('sprout')}<b>${G.lvls}</b><small>fases</small></div><div>${ic('star')}<b>${G.got}</b><small>estrelas</small></div>`,done),600)}
  function draw(){ctx.save();shk(ctx,G);skyBg(ctx,W,H,'#fff3e0','#ffe0b2',G.t,null);ctx.fillStyle='#d7ccc8';ctx.fillRect(0,H-26,W,26);
@@ -3373,7 +3373,7 @@ if(document.querySelector('#app .home'))home();
   if(!isPhone()||document.body.classList.contains('playing')||cov.__rotOk){if(old)old.remove();if(cs)cs.style.visibility='';return}
   const land=innerWidth>innerHeight,wantLand=isWide(k);
   if(wantLand===land){if(old)old.remove();if(cs)cs.style.visibility='';return}
-  if(!isIOS)lockTo(wantLand);
+  
   if(old)return;const d=document.createElement('div');d.className='rotov '+(wantLand?'tl':'tp');
   d.innerHTML=`<div class="rph"><i></i></div><button class="rbtn" type="button">Jogar assim mesmo</button>`;
   d.querySelector('.rbtn').onclick=e=>{e.stopPropagation();cov.__rotOk=true;d.remove();if(cs)cs.style.visibility=''};
@@ -4718,6 +4718,73 @@ body.appscroll{overflow:hidden!important;height:100%!important}
 body.appscroll #app{height:100vh;height:100dvh;max-height:100dvh;overflow-y:auto!important;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y!important;box-sizing:border-box;padding-bottom:40px!important}
 body.big.appscroll #app{height:calc(100dvh / var(--uz,1));max-height:calc(100dvh / var(--uz,1))}
 .v3home .v3sec .fb3.novaav{--c:#d94dff!important;--d:#7a1fb0!important;width:auto!important;max-width:none!important;margin:0!important}
+`;document.head.appendChild(css);
+})();
+</script>
+<script>/* ===== PARTE 8 (10/11 tarde): PODER/HELP depois do chefão, cartões ocupando o visor, transformação com card, Minhoca nova ===== */
+(function(){
+/* --- 1. depois de um chefão o PODER não "vaza" para os jogos sem poder --- */
+Object.keys(STEPS).forEach(k=>{if(k==='boss')return;const o=STEPS[k];STEPS[k]=function(){window.__engPow=false;return o.apply(this,arguments)}});
+
+/* --- 2. cartões (perguntas, atividades, transformação) ocupam o visor inteiro, com ou sem tela cheia --- */
+function fill(){const app=document.getElementById('app');if(!app)return;
+ if(document.body.classList.contains('playing')||app.querySelector('#cwrap')||app.querySelector('.v3home')){app.querySelectorAll('.fillcard').forEach(c=>{c.classList.remove('fillcard');c.style.minHeight=''});return}
+ const cards=[...app.children].filter(e=>e.classList&&e.classList.contains('card'));const c=cards[cards.length-1];if(!c)return;
+ const top=c.getBoundingClientRect().top-(app.getBoundingClientRect().top)+(app.scrollTop||0)+app.getBoundingClientRect().top;
+ const avail=Math.floor((window.visualViewport?visualViewport.height:innerHeight)-Math.max(0,top)-14);
+ if(avail>260){c.classList.add('fillcard');c.style.minHeight=avail+'px'}}
+let ft=0;const sched=()=>{cancelAnimationFrame(ft);ft=requestAnimationFrame(fill)};
+new MutationObserver(sched).observe(document.getElementById('app'),{childList:true,subtree:true});
+addEventListener('resize',sched);document.addEventListener('fullscreenchange',()=>setTimeout(sched,120));if(window.visualViewport)visualViewport.addEventListener('resize',sched);
+
+/* --- 3. Minhoca do Adubo no estilo do Snake clássico --- */
+function snake2(done){const good=['banana','apple','carrot','egg','leafdry','coffee'],bad=['bag','bottle','can'];
+ const st=stage(`${ic('sprout')} MINHOCA DO ADUBO!`,`<b class="covt">Ajude a minhoca a fazer adubo para a floresta!</b><p>DESLIZE o dedo para virar (no computador: setas).</p><p>Coma os restos orgânicos ${good.slice(0,4).map(k=>ic(k)).join(' ')} – a cada um ela CRESCE e fica mais RÁPIDA.</p><p>Não bata na PAREDE nem no próprio corpo, e fuja do plástico e do metal ${bad.map(k=>ic(k)).join(' ')}!</p>`);
+ const{cv,ctx,W,H,h}=st;const land=W>H;const cols=land?14:9,top=56;const cs=Math.floor(Math.min(W/cols,(H-top-10)/(land?9:13)));const rows=Math.floor((H-top-10)/cs);const ox=Math.floor((W-cols*cs)/2),oy=top;
+ const mid=()=>[{x:Math.floor(cols/2),y:rows-4},{x:Math.floor(cols/2),y:rows-3},{x:Math.floor(cols/2),y:rows-2}];
+ const G={t:0,dur:60,body:mid(),dir:{x:0,y:-1},q:[],acc:0,step:.26,food:null,junk:null,score:0,lives:3,inv:0,combo:0,over:false,fl:[],pa:[],shake:0,eaten:0,grow:0,pause:1.6};
+ const occ=(x,y)=>G.body.some(b=>b.x===x&&b.y===y)||(G.food&&G.food.x===x&&G.food.y===y)||(G.junk&&G.junk.x===x&&G.junk.y===y);
+ const free=()=>{for(let k=0;k<200;k++){const x=Math.floor(Math.random()*cols),y=Math.floor(Math.random()*rows);if(!occ(x,y)&&Math.abs(x-G.body[0].x)+Math.abs(y-G.body[0].y)>2)return{x,y}}return{x:0,y:0}};
+ const newFood=()=>{G.food={...free(),k:rnd(good),t:0}};const newJunk=()=>{G.junk={...free(),k:rnd(bad),ttl:7}};newFood();
+ const turn=(x,y)=>{const last=G.q.length?G.q[G.q.length-1]:G.dir;if((x===-last.x&&y===-last.y)||(x===last.x&&y===last.y))return;if(G.q.length<2)G.q.push({x,y})};
+ let sx=0,sy=0,sw=false;cv.addEventListener('pointerdown',e=>{e.preventDefault();sx=e.clientX;sy=e.clientY;sw=false});
+ cv.addEventListener('pointermove',e=>{if(sw)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))>22){sw=true;if(Math.abs(dx)>Math.abs(dy))turn(dx>0?1:-1,0);else turn(0,dy>0?1:-1)}});
+ cv.addEventListener('pointerup',e=>{if(sw)return;const r=cv.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width,py=(e.clientY-r.top)*H/r.height,hd=G.body[0],hx=ox+hd.x*cs+cs/2,hy=oy+hd.y*cs+cs/2;if(G.dir.x!==0)turn(0,py<hy?-1:1);else turn(px<hx?-1:1,0)});
+ const kd=e=>{if(!document.body.contains(cv)){removeEventListener('keydown',kd);return}const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key];if(m){turn(...m);e.preventDefault()}};addEventListener('keydown',kd);
+ function crash(x,y,msg){if(G.inv>0)return;hurtG(G,x,y,end);ftx(G,W/2,oy+rows*cs*.35,msg,'#ffb3b3');G.shake=.5;if(!G.over){G.body=mid();G.dir={x:0,y:-1};G.q=[];G.pause=1.4;G.step=Math.min(.26,G.step+.03)}}
+ function upd(dt){if(G.over){updFx(G,dt);return}G.t+=dt;G.inv=Math.max(0,G.inv-dt);G.shake=Math.max(0,G.shake-dt);if(G.food)G.food.t+=dt;
+  if(G.junk){G.junk.ttl-=dt;if(G.junk.ttl<=0)G.junk=null}else if(G.t>6&&Math.random()<dt*.18)newJunk();
+  if(G.pause>0){G.pause-=dt;updFx(G,dt);if(G.t>=G.dur)end();return}
+  G.acc+=dt;while(G.acc>=G.step){G.acc-=G.step;if(G.q.length)G.dir=G.q.shift();const hd=G.body[0],n={x:hd.x+G.dir.x,y:hd.y+G.dir.y};const px=ox+n.x*cs+cs/2,py=oy+n.y*cs+cs/2;
+   if(n.x<0||n.y<0||n.x>=cols||n.y>=rows){crash(ox+hd.x*cs+cs/2,oy+hd.y*cs+cs/2,'Bateu na parede!');break}
+   if(G.body.slice(0,G.grow>0?G.body.length:-1).some(b=>b.x===n.x&&b.y===n.y)){crash(px,py,'Mordeu o rabo!');break}
+   G.body.unshift(n);
+   if(G.food&&G.food.x===n.x&&G.food.y===n.y){G.grow+=1;G.eaten++;G.combo++;const v=10+Math.min(20,Math.floor(G.combo/3)*5);G.score+=v;SFX.chomp&&SFX.chomp();fxs(G,px,py,'leaf',10);ftx(G,px,py-24,'+'+v,'#ffd400');G.step=Math.max(.1,G.step*.94);if(G.eaten%6===0){pop('ADUBO PRONTO!');S.gems++;hud();SFX.gem()}newFood()}
+   else if(G.junk&&G.junk.x===n.x&&G.junk.y===n.y){G.junk=null;if(G.body.length>4)G.body.splice(-2,2);hurtG(G,px,py,end);ftx(G,px,py-30,'Plástico não!','#ffb3b3')}
+   if(G.grow>0)G.grow--;else G.body.pop()}
+  updFx(G,dt);if(G.t>=G.dur)end()}
+ function end(){if(G.over)return;G.over=true;const pts=Math.max(8,Math.min(25,Math.round(G.score/12)));setTimeout(()=>results(st,G,pts,'ADUBO FEITO!',`<div>${ic('apple')}<b>${G.eaten}</b><small>restos comidos</small></div><div>${ic('sprout')}<b>${G.body.length}</b><small>tamanho</small></div>`,done),600)}
+ function draw(){ctx.save();shk(ctx,G);ctx.fillStyle='#3e2712';ctx.fillRect(-10,-10,W+20,H+20);
+  for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){ctx.fillStyle=(x+y)%2?'#7a5230':'#6b4526';ctx.fillRect(ox+x*cs,oy+y*cs,cs,cs)}
+  ctx.strokeStyle='#2bd65f';ctx.lineWidth=4;ctx.strokeRect(ox-2,oy-2,cols*cs+4,rows*cs+4);
+  if(G.food){const f=G.food,x=ox+f.x*cs+cs/2,y=oy+f.y*cs+cs/2,s=cs*1.25*(1+Math.sin(f.t*6)*.06);ctx.save();ctx.shadowColor='#7dffb0';ctx.shadowBlur=18;ctx.fillStyle='rgba(125,255,176,.25)';ctx.beginPath();ctx.arc(x,y,cs*.62,0,6.28);ctx.fill();dsp(ctx,f.k,x,y,s);ctx.restore()}
+  if(G.junk){const f=G.junk,x=ox+f.x*cs+cs/2,y=oy+f.y*cs+cs/2;if(!(f.ttl<2&&Math.floor(G.t*8)%2)){ctx.save();ctx.fillStyle='rgba(255,60,60,.28)';ctx.beginPath();ctx.arc(x,y,cs*.62,0,6.28);ctx.fill();dsp(ctx,f.k,x,y,cs*1.15);ctx.strokeStyle='#ff3b3b';ctx.lineWidth=3;ctx.beginPath();ctx.arc(x,y,cs*.6,0,6.28);ctx.stroke();ctx.restore()}}
+  const blink=G.inv>0&&Math.floor(G.t*12)%2;for(let i=G.body.length-1;i>=0;i--){const b=G.body[i],x=ox+b.x*cs+cs/2,y=oy+b.y*cs+cs/2;if(blink&&i)continue;
+   if(i===0){heroDraw(ctx,G,h,x,y,cs*.58,'head')}else{const r=cs*.47*(1-i/(G.body.length*2.6));ctx.fillStyle=i%2?'#ff9ab8':'#ff7aa2';ctx.strokeStyle='#1b2a4a';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r,0,6.28);ctx.fill();ctx.stroke()}}
+  if(G.pause>0)otx(ctx,'PREPARA...',W/2,oy+rows*cs/2,'#fff',Math.round(cs*.8));
+  drawFx(ctx,G);ctx.restore();hudBar(ctx,W,G)}
+ startGame(st,G,upd,draw,'COME!')}
+const _sn=STEPS.snake;STEPS.snake=function(d){window.__curGame='snake';window.__engPow=false;return snake2(d)};
+
+const css=document.createElement('style');css.id='p8css';css.textContent=`
+#app>.card.fillcard{display:flex!important;flex-direction:column;justify-content:space-evenly;box-sizing:border-box}
+#app>.card.fillcard .opts,#app>.card.fillcard .bins,#app>.card.fillcard .grid{flex:0 0 auto}
+.tcard.fillcard #treveal{flex:1 1 auto;display:flex;flex-direction:column;justify-content:space-evenly}
+.tcard .hero-reveal.cardrev{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;color:var(--ink)}
+.tcard .hbig .tcardimg{display:block;margin:0 auto;height:min(56vh,560px)!important;max-height:56dvh!important;width:auto!important;max-width:94%!important;border-radius:18px!important;border:0!important;box-shadow:0 0 0 4px var(--c),0 0 36px var(--c),0 10px 0 rgba(0,0,0,.25)!important;animation:cardIn .9s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes cardIn{0%{transform:rotateY(90deg) scale(.6);filter:brightness(3)}60%{filter:brightness(1.6)}100%{transform:none;filter:none}}
+.tcard .hero-reveal.cardrev .hframe{background:var(--c);color:#fff;border-radius:14px;padding:8px 12px;margin:10px auto 6px;max-width:94%;-webkit-text-stroke:0}
+.tcard .hero-reveal.cardrev .born{color:#ff9a00;-webkit-text-stroke:1px var(--ink);paint-order:stroke fill}
 `;document.head.appendChild(css);
 })();
 </script>
