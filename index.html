@@ -3440,7 +3440,7 @@ function heroBig(id,backFn){const h=hero(id);const o=document.createElement('div
 window.__heroGal2=heroGal2;
 
 /* ---------- 2. áudios: frases de vitória e sons de energia ---------- */
-const GRP={aqua:'aqua',tita:'tita',flora:'heroinas',luna:'heroinas',marina:'heroinas',raiz:'heroinas',fenix:'herois',flash:'herois',raio:'herois',reciclo:'herois'};
+const GRP={aqua:'aqua',tita:'tita',flora:'heroinas',luna:'heroinas',marina:'heroinas',raiz:'heroinas',cloro:'heroinas',fenix:'herois',flash:'herois',raio:'herois',reciclo:'herois',bio:'herois'};
 const FRASE=['Água limpa é vida! Cuide da nascente!','Cada gota conta! Feche a torneira!','Lixo no lugar certo vira recurso!','Sem árvore não tem água! Proteja o Cerrado!','O mar não é lixeira! Diga não ao plástico!','Juntos somos mais fortes! O planeta agradece!'];
 const audURL=k=>A2[k]?'data:audio/mpeg;base64,'+A2[k]:null;
 function playVoice(url){return new Promise(res=>{if(!url||(typeof voiceOn!=='undefined'&&!voiceOn))return res(0);try{try{speechSynthesis.cancel()}catch(e){}if(typeof vozStop==='function')vozStop();const a=new Audio(url);a.volume=Math.min(1,(typeof CFG!=='undefined'?CFG.v:1));try{vozAud=a}catch(e){}let done=false;const end=()=>{if(done)return;done=true;res(a.duration||0)};a.onended=end;a.onerror=end;a.play().catch(end);setTimeout(end,9000)}catch(e){res(0)}})}
