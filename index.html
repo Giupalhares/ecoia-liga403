@@ -5311,6 +5311,11 @@ body.land .tcard .hbig .tcardimg{height:calc(100dvh - 240px)!important}
 .tcard #treveal{justify-content:center!important}
 `;document.head.appendChild(css);
 })();
+
+/* v14: ao abrir o link, a música do jogo sempre começa ligada e com volume normal */
+try{if(typeof CFG!=='undefined'&&(!(CFG.m>=0.25))){CFG.m=0.8;try{saveCfg()}catch(e){}}
+ if(typeof musPick!=='undefined'&&musPick!=='auto'){musPick='auto';try{localStorage.setItem('ecoia_mus','auto')}catch(e){}}
+ if(typeof musicOn!=='undefined')musicOn=true;try{const b=document.getElementById('bMus');b&&b.classList.remove('off')}catch(e){}}catch(e){}
 </script>
 </body>
 </html>
